@@ -1,170 +1,76 @@
-# AI-Green-Impact-Analyzer
-Prototype intelligent qui estime l'empreinte carbone numérique d'une entreprise, génère un Green Score et propose des recommandations avec simulation d'optimisation, via une architecture end-[...]
-
 # AI Green Impact Analyzer
 
-Prototype d'assistant intelligent d'analyse environnementale numérique combinant :
-
-* Prédiction de l'empreinte carbone digitale (GreenImpact)
-* Optimisation et simulation écologique (GreenOptimizer)
+Prototype intelligent d'analyse de consommation énergétique permettant d'estimer l'empreinte carbone d'une infrastructure numérique, de générer un Green Score et de simuler des scénarios d'optimisation énergétique.
 
 ## Objectif global
 
-Concevoir un prototype end-to-end permettant :
+Concevoir un système end-to-end capable de :
 
-1. D'estimer l'impact environnemental numérique d'une entreprise
-2. De générer un score écologique intelligent
-3. De recommander des actions d'optimisation personnalisées
-4. De simuler l'impact de scénarios d'amélioration ("what-if")
+- Prédire la consommation énergétique d'une infrastructure (bâtiment / système IT simulé)
+- Estimer les émissions de CO₂ associées à partir de facteurs d'émission
+- Générer un score écologique intelligent
+- Simuler des stratégies d'optimisation énergétique ("what-if scenarios")
 
 Résultat attendu :
-Un rapport complet comprenant score écologique, émissions CO₂ estimées et recommandations personnalisées.
+Un rapport complet comprenant consommation prédite, émissions CO₂ estimées et recommandations d'optimisation.
 
-# Module 1 — GreenImpact (Prédiction)
+## Module 1 — GreenImpact (Prédiction)
 
-## Objectifs
+### Objectifs
 
-* Construire un modèle de prédiction des émissions CO₂ digitales
-* Comparer une approche baseline (formule standard carbone) vs modèle ML
-* Intégrer des variables contextuelles (pays, type cloud, taille entreprise, etc.)
-* Évaluer les performances via métriques de régression
+- Construire un mod��le de régression pour prédire la consommation énergétique
+- Comparer une approche baseline (moyenne historique) vs modèles ML
+- Analyser l'impact des variables environnementales (température, humidité, etc.)
+- Évaluer les performances via MAE, RMSE et R²
 
-## Données utilisées (exemples)
+### Données utilisées
 
-Dataset 1 : Données d'activité numérique
+Dataset : Appliances Energy Prediction
+Variables principales :
 
-* Nombre d'emails envoyés/jour
-* Volume stockage cloud (GB)
-* Trafic web mensuel
-* Nombre de serveurs
-* Consommation énergétique IT
-* Nombre d'employés
-* Type d'hébergement (cloud/local)
-* Pays (mix énergétique)
+- Consommation énergétique (target)
+- Température intérieure / extérieure
+- Humidité
+- Conditions environnementales
+- Variables temporelles
 
-## Modèles possibles
+### Résultat
 
-* Baseline : calcul carbone via formule standard
-* Random Forest Regressor
-* XGBoost Regressor
-* Linear Regression (comparaison)
+- Consommation énergétique prédite
+- Estimation des émissions CO₂ (kWh → kg CO₂)
+- Green Score (0–100)
 
-## Métriques
+## Module 2 — GreenOptimizer (Simulation)
 
-* MAE
-* RMSE
-* R²
+### Objectifs
 
-### Résultat attendu :
+- Identifier les facteurs influençant fortement la consommation
+- Proposer des stratégies d'optimisation énergétique
+- Simuler la réduction des émissions après amélioration
 
-* Estimation des émissions CO₂ annuelles
-* Green Score (0–100)
+### Exemples de simulation
 
-# Module 2 — GreenOptimizer (Recommandation & Simulation)
-
-## Objectifs
-
-* Identifier les variables les plus polluantes
-* Générer des recommandations écologiques personnalisées
-* Simuler des scénarios d'amélioration
-
-## Exemples de recommandations
-
-* Réduire les emails internes de 30%
-* Optimiser le stockage cloud (suppression données inutiles)
-* Migrer vers un cloud alimenté par énergie renouvelable
-* Compresser les fichiers multimédia
-* Réduire serveurs physiques
-
-## Simulation dynamique
+- Réduction de la consommation de 20%
+- Optimisation des plages horaires énergivores
+- Ajustement des paramètres environnementaux
 
 Exemple :
 
-> Si vous réduisez le trafic web de 20%, vos émissions diminuent de 85 kg CO₂/an.
-> Votre score écologique passe de 64 à 78.
+Une réduction de 15% de la consommation permet de diminuer les émissions de 120 kg CO₂/an et d'améliorer le Green Score de 68 à 82.
 
-### Résultat attendu :
+## Architecture
 
-* Rapport comparatif Avant / Après
-* Score optimisé
-* Gain carbone estimé
+- API (FastAPI)
+- Service de prédiction énergétique
+- Service d'estimation carbone
+- Service de simulation
+- Frontend React (Dashboard interactif)
+- Tracking des expériences avec MLflow
+- Conteneurisation Docker
 
-# Architecture (Vue d'ensemble)
+## Valeur ajoutée
 
-Le projet est organisé en couches pour séparer les responsabilités :
-
-* API (FastAPI) expose les endpoints
-* Services orchestrent la logique métier
-* ML contient les modèles et pipelines
-* Data gère ingestion, nettoyage et features
-
-Flux type :
-
-1. Requête entreprise → API
-2. Service GreenImpact → modèle ML → Score + CO₂
-3. Service GreenOptimizer → recommandations + simulation
-4. API renvoie rapport complet
-
-# Structure du projet
-
-backend/
-app/
-main.py                # Point d'entrée FastAPI
-api/
-v1/
-routes/
-health.py
-green.py
-core/                  # Configuration
-models/                # Modèles domain
-schemas/               # Schémas Pydantic
-services/
-green_score.py
-green_optimizer.py
-ml/
-impact_model.py
-pipelines/
-etl.py
-tests/
-
-frontend/
-(React + Vite)
-
-data/
-raw/
-processed/
-features/
-
-# Endpoints initiaux
-
-* GET /api/v1/health
-* POST /api/v1/green/estimate
-* POST /api/v1/green/simulate
-
-# Interface Frontend
-
-Dashboard interactif :
-
-* Green Score (gauge chart)
-* Emissions CO₂ estimées
-* Graphiques comparatifs
-* Bouton "Simuler un scénario"
-* Rapport téléchargeable
-
-# Technologies utilisées
-
-* Python
-* FastAPI
-* Scikit-learn / XGBoost
-* MLflow (tracking expériences)
-* React + Vite
-* Docker
-* Pandas / NumPy
-
-# Valeur ajoutée du projet
-
-* Approche analytique + prédictive
-* Comparaison baseline vs ML
-* Simulation dynamique
-* Impact environnemental réel
-* Alignement avec Green IT & ESG
+- Approche prédictive + simulation dynamique
+- Interprétabilité des variables influentes
+- Application concrète au Green IT
+- Prototype déployable et scalable
