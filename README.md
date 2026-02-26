@@ -18,7 +18,7 @@ Un rapport complet comprenant consommation prédite, émissions CO₂ estimées 
 
 ### Objectifs
 
-- Construire un mod��le de régression pour prédire la consommation énergétique
+- Construire un modele de régression pour prédire la consommation énergétique
 - Comparer une approche baseline (moyenne historique) vs modèles ML
 - Analyser l'impact des variables environnementales (température, humidité, etc.)
 - Évaluer les performances via MAE, RMSE et R²
