@@ -2,12 +2,15 @@ FROM python:3.11-slim
 
 WORKDIR /srv
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# The Debian mirror is unreliable over plain HTTP in some network
+# environments; force HTTPS.
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list.d/*.sources \
+    && apt-get update && apt-get install -y --no-install-recommends \
     libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --timeout 100 --retries 10 -r requirements.txt
 
 COPY app ./app
 COPY models ./models
