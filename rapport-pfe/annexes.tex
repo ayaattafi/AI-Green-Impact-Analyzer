@@ -1,0 +1,133 @@
+\chapter*{Annexes}
+\addcontentsline{toc}{chapter}{Annexes}
+\markboth{Annexes}{}
+\stepcounter{chapter}
+\addtocontents{lot}{\vspace{3.8mm}}
+\addtocontents{lof}{\vspace{3.8mm}}
+
+%===================== ANNEXE 1 =====================%
+\section*{Annexe 1.~Liste complète des points d'entrée de l'API}
+\addcontentsline{toc}{section}{Annexe 1.~Liste complète des points d'entrée de l'API}
+
+\addcontentsline{lot}{table}{Annexe 1.1~~~Points d'entrée exposés par le micro-service ML}
+
+Le tableau annexe~1.1 recense l'ensemble des points d'entrée REST exposés par le micro-service de Machine Learning (FastAPI).
+
+{\raggedright \textbf{Tableau annexe 1.1~:}~Points d'entrée exposés par le micro-service ML}
+\begin{longtable}[c]{
+    | p{.30\textwidth}
+    | p{.12\textwidth}
+    | p{.50\textwidth} |
+}
+    \hline
+    \textbf{Route} & \textbf{Méthode} & \textbf{Description} \\ \hline
+    \endhead
+    \texttt{/api/predict/carbon} & POST & Prédiction d'empreinte carbone -- transport \\ \hline
+    \texttt{/api/predict/energy} & POST & Prédiction d'empreinte carbone -- énergie domestique \\ \hline
+    \texttt{/api/predict/electronics} & POST & Prédiction d'empreinte carbone -- électronique \\ \hline
+    \texttt{/api/predict/water} & POST & Prédiction de consommation d'eau \\ \hline
+    \texttt{/api/predict/food} & POST & Prédiction d'empreinte carbone -- alimentation \\ \hline
+    \texttt{/api/predict/waste} & POST & Prédiction d'empreinte carbone -- déchets \\ \hline
+    \texttt{/api/forecast} & POST & Prévision de tendance à partir d'un historique \\ \hline
+    \texttt{/api/models/metrics} & GET & Métriques complètes (MAE/RMSE/R\textsuperscript{2}) des 5 algorithmes, 6 catégories \\ \hline
+    \texttt{/api/models/\{category\}/distribution} & GET & Percentiles de la distribution cible d'une catégorie \\ \hline
+    \texttt{/health} & GET & Point de contrôle de santé du service (Docker healthcheck) \\ \hline
+\end{longtable}
+
+\addcontentsline{lot}{table}{Annexe 1.2~~~Exemple de requête et de réponse}
+
+Le tableau annexe~1.2 illustre un exemple concret d'appel à l'API de prédiction pour la catégorie Transport.
+
+{\raggedright \textbf{Tableau annexe 1.2~:}~Exemple de requête / réponse -- \texttt{POST /api/predict/carbon}}
+
+\begin{lstlisting}[caption={Corps de la requête (JSON)}]
+{
+  "vehicleType": "car",
+  "fuelType": "petrol",
+  "distance": 20,
+  "fuelConsumption": 6,
+  "passengers": 1
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Réponse renvoyée (JSON)}]
+{
+  "category": "carbon",
+  "prediction": 2.77,
+  "target": "co2e_kg",
+  "unit": "kg CO2e",
+  "greenScore": 95,
+  "confidence": 0.982,
+  "modelUsed": "gradient_boosting",
+  "percentileRank": 5.0,
+  "featureContributions": {
+    "distance": 0.43,
+    "fuelType": 0.27,
+    "fuelConsumption": 0.19,
+    "vehicleType": 0.08,
+    "passengers": 0.03
+  }
+}
+\end{lstlisting}
+
+\newpage
+%===================== ANNEXE 2 =====================%
+\section*{Annexe 2.~Extrait de la configuration de déploiement Docker}
+\addcontentsline{toc}{section}{Annexe 2.~Extrait de la configuration de déploiement Docker}
+
+L'extrait ci-dessous, tiré du fichier \texttt{docker-compose.yml} du projet, illustre l'orchestration des deux conteneurs applicatifs et leur configuration de supervision (\textit{healthcheck}).
+
+\begin{lstlisting}[caption={Extrait de docker-compose.yml}]
+services:
+  ml-service:
+    build: ./ml-service
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_SUPABASE_URL: "${VITE_SUPABASE_URL}"
+        VITE_ML_API_URL: "${VITE_ML_API_URL:-http://localhost:8000}"
+    ports:
+      - "8080:80"
+    depends_on:
+      ml-service:
+        condition: service_healthy
+    restart: unless-stopped
+\end{lstlisting}
+
+\newpage
+%===================== ANNEXE 3 =====================%
+\section*{Annexe 3.~Constantes et facteurs d'émission documentés}
+\addcontentsline{toc}{section}{Annexe 3.~Constantes et facteurs d'émission documentés}
+
+\addcontentsline{lot}{table}{Annexe 3.1~~~Facteurs d'émission utilisés pour la génération des données d'entraînement}
+
+Le tableau annexe~3.1 recense les principaux facteurs d'émission physiques utilisés lors de la construction des jeux de données d'entraînement (script \texttt{prepare\_datasets.py}), avec leur source officielle.
+
+{\raggedright \textbf{Tableau annexe 3.1~:}~Facteurs d'émission documentés}
+\begin{longtable}[c]{
+    | p{.42\textwidth}
+    | p{.20\textwidth}
+    | p{.30\textwidth} |
+}
+    \hline
+    \textbf{Facteur} & \textbf{Valeur} & \textbf{Source} \\ \hline
+    \endhead
+    Facteur d'émission du réseau électrique (USA) & 0,42~kg CO2/kWh & EPA eGRID \\ \hline
+    Chauffage au gaz naturel & 0,18~kg CO2e/kWh & DOE/EPA \\ \hline
+    Chauffage au fioul & 0,27~kg CO2e/kWh & DOE/EPA \\ \hline
+    Pompe à chaleur & 0,08~kg CO2e/kWh & DOE/EPA (COP~$\approx$~3) \\ \hline
+    Intensité du gaspillage alimentaire & 2,5~kg CO2/kg & FAO / WRAP \\ \hline
+    Débit d'une douche économe & 9,5~L/min & EPA WaterSense \\ \hline
+    Équivalence arbre planté & 21~kg CO2/an & Estimation usuelle de séquestration \\ \hline
+\end{longtable}

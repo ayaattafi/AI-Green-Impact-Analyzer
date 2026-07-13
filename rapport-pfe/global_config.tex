@@ -1,0 +1,71 @@
+
+%=== File containing Global Configuration of the report ===%
+%   Rapport PFE - Projet GREENLY                            %
+%   ATTENTION : les champs marqués [À COMPLÉTER] doivent    %
+%   être remplis avec vos informations personnelles avant   %
+%   la soutenance (nom, encadrants, année universitaire).   %
+%==========================================================%
+
+%============= Config new columns type ==============%
+\newcolumntype{L}{>{\raggedright\arraybackslash}}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}}
+\newcolumntype{C}{>{\centering\arraybackslash}}
+%==================================================%
+
+%========= Config the cover section ==========%
+
+\title{GREENLY~: Plateforme Intelligente de Calcul et de Suivi de l'Empreinte Carbone par Machine Learning}
+
+\author{[À COMPLÉTER -- Prénom NOM]}
+%%% if necessary
+% Set isBinomal to true and type second author name
+%\setboolean{isBinomal}{true}
+%\secondAuthor{Prénom NOM}
+
+\diplomaName{Diplôme National d'Ingénieur en Sciences Appliquées et Technologiques}
+\speciality{Génie Logiciel et Systèmes d'Information}
+
+%% Encadrant professionnel
+\proFramerName{[À COMPLÉTER]}
+\proFramerSpeciality{Ingénieur R\&D}
+
+%% Encadrant académique
+\academicFramerName{[À COMPLÉTER]}
+\academicFramerSpeciality{Maître Assistant(e)}
+
+%% "Entreprise d'accueil" -- GREENLY est un projet personnel/académique de
+%% recherche appliquée, réalisé hors cadre d'un stage en entreprise.
+\companyName{Projet de Recherche Appliquée -- GREENLY}
+
+%% Année universitaire
+\collegeYear{2025 - 2026}
+
+%%%%%% Signatures section %%%%%%
+
+\proSignSentence{J'autorise l'étudiant à faire le dépôt de son rapport de projet en vue d'une soutenance.}
+
+\academicSignSentence{J'autorise l'étudiant à faire le dépôt de son rapport de projet en vue d'une soutenance.}
+
+%%% AR
+\arabicAbstract{تعالج هذه المذكرة تصميم وتطوير وتنفيذ منصة "GREENLY"، وهي تطبيق ويب ذكي لحساب وتتبع البصمة الكربونية للأفراد باستخدام تقنيات التعلّم الآلي (Machine Learning). يعتمد النظام على ستة نماذج انحدار (Regression) مدرّبة على بيانات عمومية حقيقية (وكالة حماية البيئة الأمريكية EPA، جامعة كاليفورنيا UCI، قاعدة بيانات Our World in Data) لتقدير الانبعاثات الكربونية المرتبطة بالنقل والطاقة والإلكترونيات والماء والغذاء والنفايات. تمت مقارنة خمس خوارزميات تعلّم آلي (Random Forest، Gradient Boosting، XGBoost، LightGBM، CatBoost) واختيار الأنسب تلقائيا لكل فئة حسب معامل التحديد R². يوفر النظام أيضا لوحة قيادة لذكاء الأعمال (Business Intelligence) لتحليل وتصور التطور الزمني للبصمة الكربونية للمستخدم، إلى جانب وحدة تنبؤ إحصائي لاستشراف الاتجاهات المستقبلية. تم تطوير الواجهة الأمامية باستخدام React وTypeScript، وواجهة برمجة التطبيقات الخاصة بالتعلم الآلي باستخدام FastAPI، مع الاعتماد على Supabase كقاعدة بيانات وخدمة مصادقة.}
+
+\arabicAbstractKeywords{تعلّم آلي، بصمة كربونية، ذكاء أعمال، تنبؤ، \textLR{Machine Learning}، \textLR{FastAPI}}
+
+%%% FR
+\frenchAbstract{Ce rapport présente la conception, le développement et la mise en œuvre de GREENLY, une plateforme web intelligente de calcul et de suivi de l'empreinte carbone individuelle, combinant Intelligence Artificielle et Business Intelligence. Le système s'appuie sur six modèles de régression entraînés sur des données publiques réelles (EPA, UCI Machine Learning Repository, Our World in Data / Poore \& Nemecek) afin d'estimer l'impact environnemental des usages liés au transport, à l'énergie, à l'électronique, à l'eau, à l'alimentation et aux déchets. Cinq algorithmes d'apprentissage supervisé (Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost) sont comparés automatiquement pour chaque catégorie, le meilleur étant retenu selon le coefficient de détermination R². La plateforme intègre également un module de Business Intelligence -- tableaux de bord interactifs, indicateurs clés de performance (Green Score, empreinte CO2e, consommation d'eau et d'énergie) -- ainsi qu'un module de prévision statistique des tendances futures. L'architecture repose sur une interface React/TypeScript, un micro-service Machine Learning FastAPI, et une base de données Supabase (PostgreSQL) sécurisée par des politiques de sécurité au niveau des lignes (Row Level Security). Les résultats obtenus montrent une excellente capacité prédictive du modèle (R² jusqu'à 0,999 selon les catégories) et démontrent la viabilité d'une approche hybride associant données réelles, simulation physique documentée et apprentissage automatique.}
+
+\frenchAbstractKeywords{Machine Learning, empreinte carbone, Business Intelligence, prévision, régression, FastAPI, React, Supabase}
+
+%%% EN
+\englishAbstract{This report presents the design, development and implementation of GREENLY, an intelligent web platform for calculating and tracking individual carbon footprints, combining Artificial Intelligence and Business Intelligence. The system relies on six regression models trained on real public datasets (EPA, UCI Machine Learning Repository, Our World in Data / Poore \& Nemecek) to estimate the environmental impact of transportation, energy, electronics, water, food and waste usage. Five supervised learning algorithms (Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost) are automatically compared for each category, with the best one selected based on the R² coefficient of determination. The platform also integrates a Business Intelligence module -- interactive dashboards, key performance indicators (Green Score, CO2e footprint, water and energy usage) -- as well as a statistical trend forecasting module. The architecture relies on a React/TypeScript front-end, a FastAPI Machine Learning micro-service, and a Supabase (PostgreSQL) database secured through Row Level Security policies. The results show excellent predictive capability (R² up to 0.999 depending on the category) and demonstrate the viability of a hybrid approach combining real data, documented physical simulation and machine learning.}
+
+\englishAbstractKeywords{Machine Learning, carbon footprint, Business Intelligence, forecasting, regression, FastAPI, React, Supabase}
+
+%% Pas d'adresse d'entreprise à afficher (projet académique, pas de stage en entreprise)
+\setboolean{wantToTypeCompanyAddress}{false}
+
+\companyEmail{contact@greenly-project.example}
+\companyTel{-}
+\companyFax{-}
+\companyAddressAR{-}
+\companyAddressFR{-}

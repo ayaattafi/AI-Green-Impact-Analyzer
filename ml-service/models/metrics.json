@@ -1,0 +1,309 @@
+{
+  "carbon": {
+    "target": "co2e_kg",
+    "categorical_features": [
+      "vehicleType",
+      "fuelType"
+    ],
+    "numeric_features": [
+      "distance",
+      "fuelConsumption",
+      "passengers"
+    ],
+    "best_algorithm": "gradient_boosting",
+    "algorithms": {
+      "random_forest": {
+        "mae": 1.9013,
+        "rmse": 4.6189,
+        "r2": 0.9789,
+        "train_seconds": 5.2
+      },
+      "gradient_boosting": {
+        "mae": 1.8778,
+        "rmse": 4.2184,
+        "r2": 0.9824,
+        "train_seconds": 27.32
+      },
+      "xgboost": {
+        "mae": 2.0171,
+        "rmse": 7.0576,
+        "r2": 0.9507,
+        "train_seconds": 1.07
+      },
+      "lightgbm": {
+        "mae": 1.9797,
+        "rmse": 6.5615,
+        "r2": 0.9574,
+        "train_seconds": 2.82
+      },
+      "catboost": {
+        "mae": 2.0332,
+        "rmse": 6.854,
+        "r2": 0.9535,
+        "train_seconds": 3.36
+      }
+    },
+    "feature_importance": {
+      "distance": 0.8184,
+      "fuelConsumption": 0.0696,
+      "fuelType": 0.0687,
+      "vehicleType": 0.0431,
+      "passengers": 0.0001
+    }
+  },
+  "energy": {
+    "target": "co2e_kg",
+    "categorical_features": [
+      "heatingType"
+    ],
+    "numeric_features": [
+      "electricityKwh",
+      "heatingKwh",
+      "renewablePercent",
+      "avgOutdoorTempC"
+    ],
+    "best_algorithm": "catboost",
+    "algorithms": {
+      "random_forest": {
+        "mae": 5.1074,
+        "rmse": 7.6524,
+        "r2": 0.9937,
+        "train_seconds": 1.6
+      },
+      "gradient_boosting": {
+        "mae": 2.8588,
+        "rmse": 4.0478,
+        "r2": 0.9982,
+        "train_seconds": 7.97
+      },
+      "xgboost": {
+        "mae": 2.6183,
+        "rmse": 3.8097,
+        "r2": 0.9984,
+        "train_seconds": 0.86
+      },
+      "lightgbm": {
+        "mae": 2.2836,
+        "rmse": 3.2988,
+        "r2": 0.9988,
+        "train_seconds": 0.48
+      },
+      "catboost": {
+        "mae": 1.8082,
+        "rmse": 2.55,
+        "r2": 0.9993,
+        "train_seconds": 1.75
+      }
+    },
+    "feature_importance": {
+      "renewablePercent": 0.4736,
+      "electricityKwh": 0.4407,
+      "heatingType": 0.0439,
+      "heatingKwh": 0.0351,
+      "avgOutdoorTempC": 0.0066
+    }
+  },
+  "electronics": {
+    "target": "co2e_kg",
+    "categorical_features": [
+      "deviceType"
+    ],
+    "numeric_features": [
+      "usageHours",
+      "powerWatts",
+      "standbyHours",
+      "devicesCount"
+    ],
+    "best_algorithm": "catboost",
+    "algorithms": {
+      "random_forest": {
+        "mae": 0.0399,
+        "rmse": 0.0679,
+        "r2": 0.9843,
+        "train_seconds": 1.11
+      },
+      "gradient_boosting": {
+        "mae": 0.0376,
+        "rmse": 0.0638,
+        "r2": 0.9862,
+        "train_seconds": 3.72
+      },
+      "xgboost": {
+        "mae": 0.0383,
+        "rmse": 0.0663,
+        "r2": 0.9851,
+        "train_seconds": 2.06
+      },
+      "lightgbm": {
+        "mae": 0.038,
+        "rmse": 0.0641,
+        "r2": 0.986,
+        "train_seconds": 0.55
+      },
+      "catboost": {
+        "mae": 0.0361,
+        "rmse": 0.0606,
+        "r2": 0.9875,
+        "train_seconds": 1.5
+      }
+    },
+    "feature_importance": {
+      "powerWatts": 0.3998,
+      "devicesCount": 0.3426,
+      "usageHours": 0.2043,
+      "standbyHours": 0.0506,
+      "deviceType": 0.0026
+    }
+  },
+  "water": {
+    "target": "waterLiters",
+    "categorical_features": [],
+    "numeric_features": [
+      "showerMinutes",
+      "laundryLoads",
+      "dishwasherLoads",
+      "toiletFlushes",
+      "tapMinutes"
+    ],
+    "best_algorithm": "catboost",
+    "algorithms": {
+      "random_forest": {
+        "mae": 62.0601,
+        "rmse": 83.2661,
+        "r2": 0.7475,
+        "train_seconds": 1.1
+      },
+      "gradient_boosting": {
+        "mae": 58.2658,
+        "rmse": 79.2666,
+        "r2": 0.7712,
+        "train_seconds": 3.48
+      },
+      "xgboost": {
+        "mae": 60.6556,
+        "rmse": 81.8036,
+        "r2": 0.7563,
+        "train_seconds": 0.93
+      },
+      "lightgbm": {
+        "mae": 59.8863,
+        "rmse": 80.884,
+        "r2": 0.7617,
+        "train_seconds": 0.39
+      },
+      "catboost": {
+        "mae": 57.7559,
+        "rmse": 77.3752,
+        "r2": 0.782,
+        "train_seconds": 1.64
+      }
+    },
+    "feature_importance": {
+      "laundryLoads": 0.6286,
+      "showerMinutes": 0.1307,
+      "tapMinutes": 0.1148,
+      "dishwasherLoads": 0.0964,
+      "toiletFlushes": 0.0295
+    }
+  },
+  "food": {
+    "target": "co2e_kg",
+    "categorical_features": [],
+    "numeric_features": [
+      "meatMeals",
+      "dairyServings",
+      "plantMeals",
+      "foodWasteKg"
+    ],
+    "best_algorithm": "catboost",
+    "algorithms": {
+      "random_forest": {
+        "mae": 12.514,
+        "rmse": 16.6193,
+        "r2": 0.5183,
+        "train_seconds": 1.07
+      },
+      "gradient_boosting": {
+        "mae": 11.9899,
+        "rmse": 15.9658,
+        "r2": 0.5554,
+        "train_seconds": 2.63
+      },
+      "xgboost": {
+        "mae": 12.3376,
+        "rmse": 16.4674,
+        "r2": 0.527,
+        "train_seconds": 0.64
+      },
+      "lightgbm": {
+        "mae": 12.1458,
+        "rmse": 16.1882,
+        "r2": 0.5429,
+        "train_seconds": 0.34
+      },
+      "catboost": {
+        "mae": 11.845,
+        "rmse": 15.7609,
+        "r2": 0.5667,
+        "train_seconds": 1.7
+      }
+    },
+    "feature_importance": {
+      "meatMeals": 0.6213,
+      "plantMeals": 0.1392,
+      "dairyServings": 0.133,
+      "foodWasteKg": 0.1064
+    }
+  },
+  "waste": {
+    "target": "co2e_kg",
+    "categorical_features": [],
+    "numeric_features": [
+      "plasticKg",
+      "paperKg",
+      "organicKg",
+      "glassKg",
+      "recycledPercent"
+    ],
+    "best_algorithm": "catboost",
+    "algorithms": {
+      "random_forest": {
+        "mae": 0.1381,
+        "rmse": 0.3034,
+        "r2": 0.9943,
+        "train_seconds": 1.18
+      },
+      "gradient_boosting": {
+        "mae": 0.0816,
+        "rmse": 0.1585,
+        "r2": 0.9984,
+        "train_seconds": 4.63
+      },
+      "xgboost": {
+        "mae": 0.0851,
+        "rmse": 0.1758,
+        "r2": 0.9981,
+        "train_seconds": 0.84
+      },
+      "lightgbm": {
+        "mae": 0.0783,
+        "rmse": 0.1758,
+        "r2": 0.9981,
+        "train_seconds": 0.4
+      },
+      "catboost": {
+        "mae": 0.0521,
+        "rmse": 0.1035,
+        "r2": 0.9993,
+        "train_seconds": 1.57
+      }
+    },
+    "feature_importance": {
+      "recycledPercent": 0.7742,
+      "organicKg": 0.0964,
+      "paperKg": 0.0774,
+      "plasticKg": 0.0503,
+      "glassKg": 0.0018
+    }
+  }
+}

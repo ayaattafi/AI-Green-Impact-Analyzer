@@ -1,0 +1,22 @@
+\chapter*{Conclusion générale}
+\addcontentsline{toc}{chapter}{Conclusion générale}
+\markboth{Conclusion générale}{}
+
+Ce rapport a présenté la conception, la réalisation et l'évaluation de \textbf{GREENLY}, une plateforme web intelligente combinant Intelligence Artificielle et Business Intelligence pour le calcul et le suivi de l'empreinte environnementale individuelle. Le point de départ de ce projet était un constat simple~: les calculateurs d'empreinte carbone existants, aussi utiles soient-ils, reposent presque tous sur des formules fixes, ne conservent aucun historique et n'offrent aucune prévision ni recommandation réellement personnalisée.
+
+Pour répondre à cette problématique, un pipeline complet de Machine Learning a été conçu et mis en œuvre~: collecte de données publiques réelles (EPA, UCI, Our World in Data), construction rigoureuse et documentée des variables cibles d'entraînement, comparaison objective de cinq algorithmes de régression supervisée pour six catégories d'usage, et intégration des modèles retenus dans une API de prédiction en temps réel. Les résultats obtenus -- un coefficient de détermination R\textsuperscript{2} atteignant 0,999 pour les catégories Énergie et Déchets, et restant supérieur à 0,98 pour le Transport -- démontrent la pertinence de cette approche par apprentissage automatique par rapport aux formules statiques des solutions concurrentes.
+
+Ce socle prédictif a ensuite été exploité par un module de Business Intelligence complet~: indicateurs clés de performance, trois tableaux de bord complémentaires, visualisations interactives, module de prévision statistique honnête quant à son incertitude, et système de recommandations personnalisées fondé sur l'importance réelle des variables de chaque modèle. L'ensemble repose sur une architecture logicielle moderne et déployable -- interface React/TypeScript, micro-service FastAPI, base de données Supabase sécurisée par des politiques RLS -- conteneurisée via Docker pour une mise en production reproductible.
+
+Sur le plan personnel, ce projet a été l'occasion de mettre en pratique, sur un cas réel de bout en bout, l'ensemble du cycle de vie d'un système de Machine Learning~: de la collecte et de la documentation rigoureuse des données jusqu'au déploiement d'une API de prédiction, en passant par la comparaison méthodique de plusieurs algorithmes. Il a également permis d'expérimenter concrètement l'articulation entre un volet prédictif (Intelligence Artificielle) et un volet analytique et décisionnel (Business Intelligence), deux disciplines trop souvent traitées séparément.
+
+Ce travail présente néanmoins certaines limites, qui ouvrent autant de perspectives d'évolution~:
+
+\begin{itemize}[label=\textbullet,font=\normalsize]
+\item les jeux de données d'entraînement des catégories Eau, Électronique et Déchets reposent en partie sur des distributions d'usage simulées, faute de données publiques mesurées à l'échelle du foyer~; l'intégration progressive de données réelles d'utilisateurs (avec leur consentement) permettrait d'affiner encore ces modèles~;
+\item les facteurs d'émission utilisés sont actuellement calibrés sur le contexte américain (EPA, DOE)~; une régionalisation des facteurs (mix électrique par pays, notamment tunisien ou européen) constituerait une évolution naturelle du projet~;
+\item le module de prévision, volontairement simple (régression linéaire), pourrait être enrichi -- une fois un volume suffisant d'historiques utilisateurs disponible -- par des modèles de séries temporelles plus sophistiqués (SARIMA, Prophet)~;
+\item une automatisation du cycle de ré-entraînement (pipeline MLOps avec suivi de dérive des données) renforcerait la fiabilité du système dans la durée.
+\end{itemize}
+
+En définitive, GREENLY démontre qu'il est possible de concilier rigueur scientifique (traçabilité des sources et des facteurs d'émission), puissance prédictive (Machine Learning plutôt que formules fixes) et accompagnement utilisateur dans la durée (Business Intelligence et prévision), au sein d'une architecture logicielle moderne et déployable.

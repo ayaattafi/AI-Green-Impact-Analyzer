@@ -1,0 +1,29 @@
+services:
+  ml-service:
+    build: ./ml-service
+    ports:
+      - "8000:8000"
+    environment:
+      ALLOWED_ORIGINS: "http://localhost:8080"
+      ML_API_KEY: "${ML_API_KEY:-}"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_SUPABASE_URL: "${VITE_SUPABASE_URL}"
+        VITE_SUPABASE_ANON_KEY: "${VITE_SUPABASE_ANON_KEY}"
+        VITE_ML_API_URL: "${VITE_ML_API_URL:-http://localhost:8000}"
+    ports:
+      - "8080:80"
+    depends_on:
+      ml-service:
+        condition: service_healthy
+    restart: unless-stopped

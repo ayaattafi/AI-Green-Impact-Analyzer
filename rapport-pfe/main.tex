@@ -1,0 +1,119 @@
+
+%========= File containing the main LaTex document ========%
+%                                                          %
+% Copyright (C) ISI - All Rights Reserved                  %
+% Proprietary                                              %
+% Written by Med Hossam <med.hossam@gmail.com>, April 2016 %
+%                                                          %
+% @author: HEDHILI Med Houssemeddine                       %
+% @linkedin: http://tn.linkedin.com/in/medhossam           %
+%==========================================================%
+
+%\documentclass[pfe]{./tpl/isipfe}
+\documentclass[]{./tpl/isipfe}
+\graphicspath{{./img/}}
+
+%\usepackage{hyperref}
+
+%======= Packages additionnels pour le rapport GREENLY =======%
+% tikz : utilisé pour dessiner tous les diagrammes UML (cas d'utilisation,
+% classes, séquence, activité, composants, déploiement) et le diagramme de
+% Gantt directement en LaTeX, sans dépendance à un outil externe.
+% amsmath : requis pour \text{...} utilisé dans les formules des KPI (chap_04)
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, shapes.multipart, calc, fit, backgrounds, decorations.pathreplacing, patterns}
+% \stereo{...} : affiche un stéréotype UML (ex: «component», «device») en
+% petit texte italique -- utilisé dans le TEXTE des noeuds des diagrammes,
+% donc défini comme une vraie commande LaTeX (et non un simple style tikz).
+\newcommand{\stereo}[1]{{\scriptsize\itshape #1}}
+% booktabs : tableaux professionnels (\toprule, \midrule, \bottomrule)
+\usepackage{booktabs}
+% listings : extraits de code source. Utilisé en mode quasi-verbatim afin
+% d'éviter tout risque d'erreur de compilation lié aux underscores présents
+% dans les identifiants (co2e_kg, green_score, etc.) -- \lstinline|...| et
+% \begin{lstlisting} n'exigent aucun caractère d'échappement.
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  breakatwhitespace=false,
+  frame=single,
+  framesep=2mm,
+  columns=fullflexible,
+  keepspaces=true,
+  backgroundcolor=\color{isiBlue!4},
+  captionpos=b,
+  showstringspaces=false,
+  tabsize=2
+}
+%================================================================%
+
+\input{./tpl/new_commands}
+
+% @author: Stoufa
+% the command `\makeindex` is mandatory to create the index file main.idx
+% https://tex.stackexchange.com/questions/9913/input-index-file-not-found
+\makeindex
+
+\begin{document}
+    \input{global_config}
+    
+    \frontmatter
+        \input{tpl/cover_page}
+        \include{tpl/cover_page_black}
+        \input{tpl/signatures}
+        
+        \setcounter{page}{1}
+        \input{dedicaces}
+        \thispagestyle{frontmatter}
+        \input{remerciement}
+        \thispagestyle{frontmatter}
+        
+        \setcounter{secnumdepth}{3}
+        \setcounter{tocdepth}{2}
+        \dominitoc
+        \tableofcontents
+        \adjustmtc
+        \thispagestyle{frontmatter}
+        
+        \listoffigures
+        \thispagestyle{frontmatter}
+        \listoftables
+        \thispagestyle{frontmatter}
+        
+        \input{acronymes}
+        \thispagestyle{frontmatter}
+    
+    \mainmatter
+        \input{introduction}
+        \clearpage
+        
+        \input{chap_01}
+        \clearpage
+        
+        \input{chap_02}
+        \clearpage
+        
+        \input{chap_03}
+        \clearpage
+        
+        \input{chap_04}
+        \clearpage
+        
+        \input{conclusion}
+        \clearpage
+        
+        % @author: Stoufa
+		% the command `\nocite{*}` is mandatory to avoid the “no \citation commands” error
+        % https://tex.stackexchange.com/questions/18045/problem-with-compiling-bibtex-no-citation-commands-error
+        %\nocite{*}
+        \printbibliography[heading=bibintoc]
+        
+        \input{annexes}
+        \clearpage
+
+    \backmatter
+        \input{./tpl/resume}
+    
+\end{document}
